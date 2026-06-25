@@ -3,24 +3,502 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LAGO Policy</title>
+  
+  <meta name="title" content="LAGO Policy: Latency-Aware Asynchronous Diffusion Policies with Goal-Directed Collision-Free Planning for Smooth Manipulation">
+  <meta name="description" content="Diffusion-based visuomotor policies deployed with asynchronous inference often exhibit inter-chunk discontinuities and lack explicit mechanisms for obstacle-aware execution. We propose LAGO Policy, a unified asynchronous action-generation framework that integrates trajectory optimization with diffusion policy for smooth and safe execution.">
+  <meta name="keywords" content="diffusion policy, robotic manipulation, trajectory optimization, collision avoidance, imitation learning, asynchronous inference">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LAGO Policy: Latency-Aware Asynchronous Diffusion Policies with Goal-Directed Collision-Free Planning for Smooth Manipulation">
+  <meta property="og:description" content="Diffusion-based visuomotor policies deployed with asynchronous inference often exhibit inter-chunk discontinuities and lack explicit mechanisms for obstacle-aware execution. We propose LAGO Policy, a unified asynchronous action-generation framework that integrates trajectory optimization with diffusion policy for smooth and safe execution.">
+
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <title>LAGO Policy: Latency-Aware Asynchronous Diffusion Policies with Goal-Directed Collision-Free Planning for Smooth Manipulation</title>
+  
   <link rel="icon" type="image/jpeg" href="static/images/icon.jpg">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #ffffff;
-    }
-    .logo {
-      max-width: 280px;
-      width: 80vw;
-    }
-  </style>
+  <link rel="apple-touch-icon" href="static/images/icon.jpg">
+  
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+
 </head>
 <body>
-  <img class="logo" src="static/images/icon.jpg" alt="LAGO Policy">
-</body>
-</html>
+
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">LAGO Policy: Latency-Aware Asynchronous Diffusion Policies with Goal-Directed Collision-Free Planning for Smooth Manipulation</h1>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Guowei Shi<sup>1,2,4,*</sup>,</span>
+              <span class="author-block">Xupeng Xie<sup>1,2,4,*</sup>,</span>
+              <span class="author-block">Yiming Luo<sup>3</sup>,</span>
+              <span class="author-block">Jian Guo<sup>2</sup>,</span>
+              <span class="author-block">Jun Ma<sup>1</sup>,</span>
+              <span class="author-block">Boyu Zhou<sup>4,&dagger;</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>The Hong Kong University of Science and Technology (Guangzhou),</span>
+              <span class="author-block"><sup>2</sup>International Digital Economy Academy (IDEA),</span>
+              <span class="author-block"><sup>3</sup>The University of Hong Kong,</span>
+              <span class="author-block"><sup>4</sup>Southern University of Science and Technology</span>
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>*</sup>Equal contribution.&nbsp;&nbsp;<sup>&dagger;</sup>Corresponding author.</span>
+            </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                      <span class="link-block">
+                        <a href="static/pdfs/paper.pdf" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2606.17982" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                  <span class="link-block">
+                    <a href="https://github.com/Robotics-STAR-Lab/LAGO-Policy" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser figure -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure class="paper-figure">
+        <img src="static/images/Cover_3.jpg" alt="LAGO Policy Overview" />
+        <figcaption>
+          <b>LAGO Policy.</b> Latency-aware classifier-free guidance improves inter-chunk consistency under asynchronous inference, goal prediction enables goal-directed collision-free planning, and spatial&ndash;temporal trajectory optimization refines the executed motion for smooth execution.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<!-- End teaser figure -->
+
+<!-- Video -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <video controls preload="metadata" poster="static/images/Cover_3.jpg"
+                 style="width: 100%; border-radius: 8px;">
+            <source src="static/videos/lago_policy.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Diffusion-based visuomotor policies deployed with asynchronous inference often exhibit inter-chunk discontinuities and lack explicit mechanisms for obstacle-aware execution, leading to jerky motions and collisions that hinder reliable manipulation in real-world scenes. To address these issues, we propose <b>LAGO Policy</b>, a unified asynchronous action-generation framework that integrates trajectory optimization with diffusion policy for smooth and safe execution. LAGO Policy improves inter-chunk consistency via latency-aware classifier-free guidance conditioning on future actions. It further enables goal-directed collision-free trajectory planning by predicting a task-relevant interaction goal from demonstrations. Finally, spatial&ndash;temporal trajectory optimization refines the actions to be executed for low-jerk and feasible motion. Extensive real-world experiments demonstrate that LAGO Policy achieves smooth collision-free execution with high task success across challenging manipulation tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Contributions -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Contributions</h2>
+        <div class="content has-text-justified">
+          <ol>
+            <li>A <b>latency-aware CFG</b> training scheme that decouples observation and future-action conditioning with randomized delay for smooth asynchronous execution.</li>
+            <li>A <b>goal-directed safe generation</b> paradigm coupling demonstration-derived goal prediction with trajectory optimization for safe, smooth motion.</li>
+            <li><b>Comprehensive real-world validation</b> across eight challenging manipulation tasks.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Contributions -->
+
+
+<!-- Method -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <h2 class="title is-3 has-text-centered">Method</h2>
+
+        <!-- Pipeline figure -->
+        <figure class="paper-figure" style="margin-bottom: 1.5rem;">
+          <img src="static/images/pipeline_3.jpg" alt="LAGO Policy Pipeline" />
+          <figcaption>
+            <b>Overview of LAGO Policy.</b> LAGO Policy unifies temporally consistent action generation with goal-directed collision-free motion generation for smooth robotic manipulation.
+          </figcaption>
+        </figure>
+
+        <div class="content has-text-justified">
+          <p>
+            Each asynchronous cycle generates an action chunk and predicts a task-relevant goal; goal-conditioned trajectory generation is triggered when the path to the goal is obstructed or far, and all executed motions are refined by spatial&ndash;temporal optimization.
+          </p>
+
+          <h3 class="title is-4">Latency-Aware Classifier-Free Guidance</h3>
+          <p>
+            We inject the future-action condition through CFG and randomize its temporal delay during training, making inter-chunk execution robust to latency-induced shifts at deployment.
+          </p>
+
+          <!-- Train/Deploy figure -->
+          <figure class="paper-figure">
+            <img src="static/images/train_deploy_5.jpg" alt="Latency-Aware CFG Motivation" />
+            <figcaption>
+              <b>Motivation for latency-aware CFG.</b> (a) Aligned case. (b) Training with aligned future-action conditions. (c) Shifted conditions at deployment: inference latency induces discontinuities at chunk boundaries.
+            </figcaption>
+          </figure>
+
+          <h3 class="title is-4">Goal-Prediction Head</h3>
+          <p>
+            A goal-prediction head on the denoising U-Net bottleneck predicts a task-relevant interaction goal from demonstrations, guiding collision-free planning in cluttered scenes.
+          </p>
+
+          <h3 class="title is-4">Collision-Free Trajectory Generation</h3>
+          <p>
+            A line-of-sight check toward the predicted goal triggers a spline-based optimizer (inspired by EGO-Planner) that produces a smooth collision-free end-effector trajectory without requiring a collision-free initialization.
+          </p>
+
+          <!-- EGO figure -->
+          <figure class="paper-figure">
+            <img src="static/images/ego_1.jpg" alt="Collision-Free Trajectory Generation" style="max-width: 500px;" />
+            <figcaption>
+              The initial trajectory collides with an unseen obstacle. A* provides a collision-free connector, guiding optimization to a smooth collision-free trajectory.
+            </figcaption>
+          </figure>
+
+          <h3 class="title is-4">Spatial-Temporal Trajectory Optimization</h3>
+          <p>
+            Executed actions are treated as keypoints and refined with MINCO-based spatial&ndash;temporal optimization for low-jerk, feasible motion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Method -->
+
+
+<!-- Experiments -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <h2 class="title is-3 has-text-centered">Experiments</h2>
+        <div class="content has-text-justified">
+          <p>We design experiments to answer the following questions:</p>
+          <ul>
+            <li><b>Q1:</b> Does latency-aware classifier-free guidance maintain inter-chunk consistency under temporally shifted future-action conditions?</li>
+            <li><b>Q2:</b> Does LAGO Policy produce smoother execution trajectories in real-world manipulation?</li>
+            <li><b>Q3:</b> Does goal-directed collision-free planning improve task completion in the presence of unseen obstacles?</li>
+          </ul>
+
+          <h3 class="title is-4">Experiment Setup</h3>
+          <p>
+            We evaluate on two platforms &mdash; a 6-DoF ARX5 and a 7-DoF Franka arm &mdash; each with two external Intel RealSense RGB-D cameras and a wrist-mounted 180&deg; fisheye camera, across eight real-world manipulation tasks. Performance is measured by success rate (<b>SR</b>), average time of successful rollouts (<b>ATR</b>), inter-chunk consistency (<b>CON</b>), and integrated squared jerk (<b>ISJ</b>).
+          </p>
+
+          <!-- Task figure -->
+          <figure class="paper-figure">
+            <img src="static/images/task_1.jpg" alt="Real-world task setups" />
+            <figcaption>
+              <b>Real-world task setups.</b> <i>Tape Hanging</i> and <i>Screw Sorting</i> are evaluated on the Franka arm, while the remaining tasks are evaluated on ARX5.
+            </figcaption>
+          </figure>
+
+          <h3 class="title is-4">Real-World Evaluation Results</h3>
+
+          <!-- Results table -->
+          <div style="overflow-x: auto;">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="font-size: 0.85rem;">
+              <thead>
+                <tr>
+                  <th rowspan="2">Method</th>
+                  <th colspan="4" style="text-align:center;">Pick &amp; Place</th>
+                  <th colspan="4" style="text-align:center;">Pen Insertion</th>
+                  <th colspan="4" style="text-align:center;">Pouring</th>
+                  <th colspan="4" style="text-align:center;">Cup Transfer</th>
+                </tr>
+                <tr>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DP</td>
+                  <td>0.85</td><td>16.91</td><td>0.034</td><td>27.29</td>
+                  <td>0.70</td><td>8.76</td><td><b>0.0092</b></td><td>32.71</td>
+                  <td>0.25</td><td>20.24</td><td>0.033</td><td>22.44</td>
+                  <td>0.10</td><td><b>10.27</b></td><td>0.041</td><td>26.34</td>
+                </tr>
+                <tr style="background-color: #e8f5e9;">
+                  <td><b>Ours</b></td>
+                  <td><b>1.0</b></td><td><b>15.41</b></td><td><b>0.019</b></td><td><b>24.37</b></td>
+                  <td><b>0.90</b></td><td><b>7.94</b></td><td>0.011</td><td><b>21.45</b></td>
+                  <td><b>0.65</b></td><td><b>19.41</b></td><td><b>0.012</b></td><td><b>15.74</b></td>
+                  <td><b>0.40</b></td><td>10.62</td><td><b>0.0083</b></td><td><b>10.11</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="overflow-x: auto; margin-top: 1rem;">
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="font-size: 0.85rem;">
+              <thead>
+                <tr>
+                  <th rowspan="2">Method</th>
+                  <th colspan="4" style="text-align:center;">Towel Folding</th>
+                  <th colspan="4" style="text-align:center;">Box Organizing</th>
+                  <th colspan="4" style="text-align:center;">Tape Hanging</th>
+                  <th colspan="4" style="text-align:center;">Screw Sorting</th>
+                </tr>
+                <tr>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                  <th>SR&uarr;</th><th>ATR&darr;</th><th>CON&darr;</th><th>ISJ&darr;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>DP</td>
+                  <td>0.35</td><td>18.24</td><td>0.058</td><td>33.11</td>
+                  <td>0.60</td><td>28.13</td><td>0.072</td><td>96.10</td>
+                  <td>0.80</td><td><b>32.82</b></td><td>0.0066</td><td>115.51</td>
+                  <td>0.60</td><td>53.50</td><td>0.0062</td><td>116.67</td>
+                </tr>
+                <tr style="background-color: #e8f5e9;">
+                  <td><b>Ours</b></td>
+                  <td><b>0.70</b></td><td><b>14.27</b></td><td><b>0.017</b></td><td><b>15.25</b></td>
+                  <td><b>0.85</b></td><td><b>27.31</b></td><td><b>0.026</b></td><td><b>29.07</b></td>
+                  <td><b>0.90</b></td><td>36.80</td><td><b>0.0059</b></td><td><b>21.16</b></td>
+                  <td><b>0.95</b></td><td><b>52.97</b></td><td><b>0.0037</b></td><td><b>18.77</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 0.9rem; color: #555; text-align: center; margin-top: 0.5rem;">
+            <b>Table 1: Real-World Evaluation.</b> LAGO Policy achieves lower CON and ISJ on nearly all tasks, indicating improved inter-chunk continuity and smoother execution trajectories, while also improving success rates.
+          </p>
+
+          <h3 class="title is-4">Robustness to Future-Action Condition Shifts (Q1)</h3>
+          <figure class="paper-figure">
+            <img src="static/images/shift_1.jpg" alt="CFG Shift Ablation" style="max-width: 580px;" />
+            <figcaption>
+              <b>SR</b> and <b>CON</b> under simulated future-action shifts. As the shift increases, Ours-LA-CFG maintains a higher success rate and exhibits less inter-chunk discontinuity.
+            </figcaption>
+          </figure>
+          <p>
+            Across increasing future-action shifts, <b>Ours-LA-CFG</b> (CFG injection with delay randomization) maintains higher SR and smaller CON change than <b>SAIL</b> and <b>Ours-CFG</b>, confirming improved robustness to temporal shifts.
+          </p>
+
+          <h3 class="title is-4">Smooth Execution in Real-World Manipulation (Q2)</h3>
+          <p>
+            LAGO Policy achieves lower CON on seven tasks and lower ISJ on all eight, with steadier gripper commands that improve contact-rich tasks such as <i>Towel Folding</i> and <i>Pouring</i>.
+          </p>
+
+          <h3 class="title is-4">Goal-Directed Obstacle Avoidance (Q3)</h3>
+          <figure class="paper-figure">
+            <img src="static/images/obstacle_avoidance_1.jpg" alt="Obstacle Avoidance" style="max-width: 600px;" />
+            <figcaption>
+              Obstacles absent from the training demonstrations are added to four tasks (highlighted in yellow). Our <b>Goal-Directed</b> method plans smooth collision-free motion from the start to the predicted goal.
+            </figcaption>
+          </figure>
+
+          <div style="overflow-x: auto;">
+            <table class="table is-bordered is-striped is-narrow is-hoverable" style="font-size: 0.9rem; margin: 0 auto;">
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Box</th>
+                  <th>Cup</th>
+                  <th>Pouring</th>
+                  <th>Pen</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>No-Avoid</td>
+                  <td>0.40</td><td>0.0</td><td>0.0</td><td>0.60</td>
+                </tr>
+                <tr>
+                  <td>Local</td>
+                  <td>0.60</td><td>0.20</td><td>0.40</td><td>0.80</td>
+                </tr>
+                <tr style="background-color: #e8f5e9;">
+                  <td><b>Goal-Directed</b></td>
+                  <td><b>1.0</b></td><td><b>0.80</b></td><td><b>0.80</b></td><td><b>1.0</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 0.9rem; color: #555; text-align: center; margin-top: 0.5rem;">
+            <b>Table 2: Success rate on four real-world tasks with unseen obstacles.</b>
+          </p>
+
+          <p>
+            By planning a collision-free trajectory to the predicted goal before handing control back for the final interaction, Goal-Directed avoids reactive short-horizon failures and achieves the highest success under unseen obstacles.
+          </p>
+
+          <figure class="paper-figure">
+            <img src="static/images/franka_goal_4.jpg" alt="Goal-Directed Motion Planning" style="max-width: 650px;" />
+            <figcaption>
+              <b>Effect of goal-directed motion planning.</b> (a) Without goal-directed planning, the motion remains piecewise and inefficient. (b) With goal-directed planning, the robot reaches the goal along a smooth trajectory, reducing task completion time.
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Experiments -->
+
+
+<!-- Conclusion -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered">Conclusion</h2>
+        <div class="content has-text-justified">
+          <p>
+            LAGO Policy combines latency-aware CFG with goal-directed collision-free planning to deliver smooth, safe, and successful diffusion-based manipulation, validated on eight real-world tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Conclusion -->
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@article{shi2026lago,
+  title   = {LAGO Policy: Latency-Aware Asynchronous Diffusion Policies with Goal-Directed Collision-Free Planning for Smooth Manipulation},
+  author  = {Shi, Guowei and Xie, Xupeng and Luo, Yiming and Guo, Jian and Ma, Jun and Zhou, Boyu},
+  journal = {arXiv preprint arXiv:2606.17982},
+  year    = {2026},
+  url     = {https://lago-policy.github.io/}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  </main>
+
+  </body>
+  </html>
